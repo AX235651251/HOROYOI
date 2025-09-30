@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', function() {
             console.log('LINE link clicked:', this.href);
             
-            // Facebook Pixel 事件追蹤
+            // Facebook Pixel 事件追蹤 (雙 Pixel 追蹤)
             if (typeof fbq !== 'undefined') {
                 if (this.textContent.includes('立即應徵')) {
                     fbq('track', 'Lead', {
@@ -190,6 +190,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         content_category: 'contact'
                     });
                 }
+                
+                // 備註：fbq('track') 會自動發送到所有已初始化的 Pixel ID
+                console.log('Event tracked to both pixels: 1127031578936012 & 815813357589747');
             }
         });
     });
@@ -264,6 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         section_name: sectionName,
                         content_category: 'page_engagement'
                     });
+                    // 自動發送到兩個 Pixel: 1127031578936012 & 815813357589747
                 }
             });
         }, {
