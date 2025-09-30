@@ -166,12 +166,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 郵件連結追蹤
-    const emailLinks = document.querySelectorAll('a[href^="mailto:"]');
-    emailLinks.forEach(link => {
+    // LINE 連結追蹤
+    const lineLinks = document.querySelectorAll('a[href*="lin.ee"]');
+    lineLinks.forEach(link => {
         link.addEventListener('click', function() {
-            console.log('Email link clicked:', this.href);
-            // 可以在這裡加入 Google Analytics 或其他追蹤代碼
+            console.log('LINE link clicked:', this.href);
+            
+            // Facebook Pixel 事件追蹤
+            if (typeof fbq !== 'undefined') {
+                if (this.textContent.includes('立即應徵')) {
+                    fbq('track', 'Lead', {
+                        content_name: '數位行銷企劃應徵',
+                        content_category: 'recruitment'
+                    });
+                } else if (this.textContent.includes('了解更多')) {
+                    fbq('track', 'ViewContent', {
+                        content_name: '職位諮詢',
+                        content_category: 'inquiry'
+                    });
+                } else {
+                    fbq('track', 'Contact', {
+                        content_name: 'LINE官方帳號',
+                        content_category: 'contact'
+                    });
+                }
+            }
         });
     });
 
@@ -233,6 +252,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 啟用滾動到頂部功能
     // scrollToTop();
+
+    // Facebook Pixel 頁面區塊瀏覽追蹤
+    const trackSectionViews = () => {
+        const sections = document.querySelectorAll('section[id]');
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && typeof fbq !== 'undefined') {
+                    const sectionName = entry.target.id;
+                    fbq('trackCustom', 'SectionView', {
+                        section_name: sectionName,
+                        content_category: 'page_engagement'
+                    });
+                }
+            });
+        }, {
+            threshold: 0.5
+        });
+
+        sections.forEach(section => {
+            sectionObserver.observe(section);
+        });
+    };
+
+    // 啟用區塊瀏覽追蹤
+    trackSectionViews();
 
     console.log('微醉 HOROYOI 招聘網站已載入完成 🎉');
 });
