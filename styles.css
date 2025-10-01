@@ -466,71 +466,7 @@ h4 { font-size: 1.4rem; }
     box-shadow: var(--shadow-medium);
 }
 
-/* CTA Section */
-.cta-section {
-    padding: 8rem 0;
-    position: relative;
-    text-align: center;
-    color: white;
-}
-
-.cta-background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    overflow: hidden;
-}
-
-.cta-bg-image {
-    width: 100%;
-    height: 120%;
-    object-fit: cover;
-    object-position: center;
-    will-change: transform;
-}
-
-.cta-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(44, 62, 80, 0.85), rgba(52, 73, 94, 0.85));
-}
-
-.cta-content {
-    position: relative;
-    z-index: 2;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.cta-content h2 {
-    font-size: 3rem;
-    margin-bottom: 1.5rem;
-}
-
-.cta-content p {
-    font-size: 1.3rem;
-    margin-bottom: 3rem;
-    opacity: 0.95;
-}
-
-.cta-buttons {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-}
-
-.response-time {
-    font-size: 0.9rem;
-    opacity: 0.8;
-}
+/* CTA styles removed */
 
 /* Footer */
 .footer {
@@ -538,6 +474,76 @@ h4 { font-size: 1.4rem; }
     color: white;
     padding: 4rem 0;
     margin: 0;
+}
+
+/* Full-width Banner */
+.full-banner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    color: white;
+}
+
+.full-banner-bg {
+    position: relative;
+    width: 100%;
+    height: 80vh; /* set a specific height for better visual control */
+    min-height: 400px; /* ensure minimum height on smaller screens */
+    z-index: 1;
+    overflow: hidden;
+}
+
+.full-banner-image {
+    width: 100%;
+    height: 100%; /* fill the container height */
+    object-fit: cover; /* crop to fill while maintaining aspect ratio */
+    object-position: center center; /* center the image */
+    display: block;
+}
+
+.full-banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(44,62,80,0.6), rgba(44,62,80,0.6));
+    z-index: 2;
+}
+
+.full-banner .container {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.full-banner-content {
+    text-align: center;
+    max-width: 900px;
+    width: 100%;
+    padding: 2rem;
+}
+
+.full-banner-content h2 {
+    font-size: 2.8rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.full-banner-content .lead {
+    color: rgba(255,255,255,0.95);
+    margin-bottom: 2rem;
+}
+
+.full-banner-actions {
+    display: flex;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .full-banner .container { padding: 3rem 1.5rem; }
+    .full-banner-content h2 { font-size: 1.8rem; }
 }
 
 .footer-content {
@@ -639,15 +645,7 @@ h4 { font-size: 1.4rem; }
         margin-top: 2rem;
     }
     
-    .cta-buttons {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .cta-btn {
-        width: 100%;
-        max-width: 300px;
-    }
+    /* CTA responsive styles removed */
     
     .footer-content {
         grid-template-columns: 1fr;
