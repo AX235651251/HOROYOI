@@ -172,27 +172,29 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', function() {
             console.log('LINE link clicked:', this.href);
             
-            // Facebook Pixel 事件追蹤 (雙 Pixel 追蹤)
-            if (typeof fbq !== 'undefined') {
+            // Google Tag Manager 事件追蹤
+            if (typeof gtag !== 'undefined') {
                 if (this.textContent.includes('立即應徵')) {
-                    fbq('track', 'Lead', {
-                        content_name: '數位行銷企劃應徵',
-                        content_category: 'recruitment'
+                    gtag('event', 'click', {
+                        event_category: 'recruitment',
+                        event_label: '數位行銷企劃應徵',
+                        value: 1
                     });
                 } else if (this.textContent.includes('了解更多')) {
-                    fbq('track', 'ViewContent', {
-                        content_name: '職位諮詢',
-                        content_category: 'inquiry'
+                    gtag('event', 'view_content', {
+                        event_category: 'inquiry',
+                        event_label: '職位諮詢',
+                        value: 1
                     });
                 } else {
-                    fbq('track', 'Contact', {
-                        content_name: 'LINE官方帳號',
-                        content_category: 'contact'
+                    gtag('event', 'contact', {
+                        event_category: 'contact',
+                        event_label: 'LINE官方帳號',
+                        value: 1
                     });
                 }
                 
-                // 備註：fbq('track') 會自動發送到所有已初始化的 Pixel ID
-                console.log('Event tracked to both pixels: 1127031578936012 & 815813357589747');
+                console.log('Event tracked via Google Tag Manager');
             }
         });
     });
@@ -256,18 +258,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // 啟用滾動到頂部功能
     // scrollToTop();
 
-    // Facebook Pixel 頁面區塊瀏覽追蹤
+    // Google Tag Manager 頁面區塊瀏覽追蹤
     const trackSectionViews = () => {
         const sections = document.querySelectorAll('section[id]');
         const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting && typeof fbq !== 'undefined') {
+                if (entry.isIntersecting && typeof gtag !== 'undefined') {
                     const sectionName = entry.target.id;
-                    fbq('trackCustom', 'SectionView', {
-                        section_name: sectionName,
-                        content_category: 'page_engagement'
+                    gtag('event', 'section_view', {
+                        event_category: 'page_engagement',
+                        event_label: sectionName,
+                        custom_parameter_1: 'section_viewed'
                     });
-                    // 自動發送到兩個 Pixel: 1127031578936012 & 815813357589747
+                    console.log(`Section ${sectionName} viewed - tracked via GTM`);
                 }
             });
         }, {
